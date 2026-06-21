@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#eef3f4}
+  input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{opacity:.35}
+  select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2 4l4 4 4-4' fill='none' stroke='%236b7d83' stroke-width='1.6'/></svg>");background-repeat:no-repeat;background-position:right 10px center}
+  @media print{[data-noprint]{display:none!important}body{background:#fff}}
+</style>
+</helmet>
+
+<div style="font-family:'Century Gothic','Jost','Questrial','Trebuchet MS',sans-serif;min-height:100vh;background:#eef3f4;color:#15242b;">
+
+  <!-- top accent -->
+  <div style="height:4px;background:linear-gradient(90deg,#0E97AE,#0A6E80);"></div>
+
+  <!-- TOP BAR -->
+  <div data-noprint style="background:#fff;border-bottom:1px solid #e4ebed;position:sticky;top:0;z-index:20;">
+    <div style="max-width:1200px;margin:0 auto;padding:15px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:flex-end;gap:14px;">
+        <div>
+          <div style="font-family:Arial,'Helvetica Neue',sans-serif;font-weight:700;text-transform:uppercase;font-size:26px;letter-spacing:.04em;line-height:1;"><span style="color:#13252b;">TERA</span><span style="color:#2F6FB2;">H2O</span></div>
+          <div style="font-family:'Century Gothic','Jost',sans-serif;font-weight:300;text-transform:uppercase;letter-spacing:.32em;font-size:10px;color:#0E97AE;margin-top:5px;">✨&nbsp; Inteligencia Operativa</div>
+        </div>
+        <div style="height:30px;width:1px;background:#e4ebed;margin:0 2px 3px;"></div>
+        <div style="font-size:14px;font-weight:600;color:#43555b;padding-bottom:2px;">{{ t.toolName }}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button onClick="{{ toggleLang }}" style="font-family:inherit;cursor:pointer;border:1px solid #cdd9dc;background:#f7fbfb;color:#0A6E80;font-weight:600;font-size:12px;letter-spacing:.08em;padding:9px 13px;border-radius:999px;" style-hover="background:#e9f4f5;">{{ t.switchLang }}</button>
+        <button onClick="{{ goReport }}" style="font-family:inherit;cursor:pointer;border:none;background:#0A6E80;color:#fff;font-weight:600;font-size:13px;padding:10px 17px;border-radius:8px;display:inline-flex;align-items:center;gap:8px;" style-hover="background:#085a69;"><span style="color:#7fe3f0;">✦</span>{{ t.genReport }}</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYOUT -->
+  <div style="max-width:1200px;margin:0 auto;padding:24px 28px 48px;display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap;">
+
+    <!-- SIDEBAR NAV -->
+    <aside data-noprint style="flex:1 1 200px;max-width:230px;min-width:190px;position:sticky;top:84px;background:#fff;border:1px solid #e4ebed;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:3px;">
+      <sc-for list="{{ steps }}" as="st" hint-placeholder-count="6">
+        <div onClick="{{ st.onClick }}" style="display:flex;align-items:center;gap:11px;padding:11px 12px;border-radius:9px;cursor:pointer;background:{{ st.bg }};" style-hover="background:#f3f8f9;">
+          <div style="flex:0 0 auto;width:24px;height:24px;border-radius:7px;background:{{ st.numBg }};color:{{ st.numColor }};font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;">{{ st.num }}</div>
+          <span style="font-size:13.5px;font-weight:{{ st.weight }};color:{{ st.color }};">{{ st.label }}</span>
+        </div>
+      </sc-for>
+    </aside>
+
+    <!-- MAIN -->
+    <main style="flex:999 1 560px;min-width:300px;display:flex;flex-direction:column;gap:20px;">
+
+      <!-- ============ PORTADA ============ -->
+      <sc-if value="{{ isPortada }}" hint-placeholder-val="{{ true }}">
+        <div style="background:linear-gradient(150deg,#0d1b2e 0%,#13294a 60%,#1c3a63 100%);border-radius:16px;padding:60px 48px;position:relative;overflow:hidden;">
+          <div style="position:absolute;inset:0;background-image:radial-gradient(circle at 80% 20%,rgba(79,149,218,.18),transparent 45%);"></div>
+          <div style="position:relative;">
+            <div style="font-family:Arial,'Helvetica Neue',sans-serif;font-weight:700;text-transform:uppercase;font-size:40px;letter-spacing:.02em;line-height:1;"><span style="color:#fff;">TERA</span><span style="color:#4F95DA;">H2O</span></div>
+            <div style="font-family:'Century Gothic','Jost',sans-serif;font-weight:300;text-transform:uppercase;letter-spacing:.4em;font-size:12px;color:#8FB4DD;margin-top:13px;">✨&nbsp; Inteligencia Operativa</div>
+            <div style="height:1px;width:140px;background:linear-gradient(90deg,#4F95DA,transparent);margin:30px 0;"></div>
+            <div style="font-size:25px;font-weight:600;color:#fff;max-width:560px;line-height:1.3;">{{ t.coverTitle }}</div>
+            <div style="font-size:15px;color:#aac4e0;max-width:540px;line-height:1.6;margin-top:14px;">{{ t.coverSub }}</div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:30px;">
+              <button onClick="{{ goProject }}" style="font-family:inherit;cursor:pointer;border:none;background:#4F95DA;color:#0d1b2e;font-weight:700;font-size:14px;padding:14px 26px;border-radius:9px;" style-hover="background:#6aa8e6;">{{ t.coverStart }} →</button>
+              <button onClick="{{ goFloc }}" style="font-family:inherit;cursor:pointer;border:1px solid #355b86;background:transparent;color:#cfe0f2;font-weight:600;font-size:14px;padding:14px 22px;border-radius:9px;" style-hover="background:#ffffff10;">{{ t.coverQuick }}</button>
+            </div>
+            <div style="display:flex;gap:26px;flex-wrap:wrap;margin-top:38px;">
+              <div style="display:flex;align-items:center;gap:9px;font-size:12.5px;color:#9fbcdc;"><span style="color:#4F95DA;font-size:16px;">●</span>{{ t.coverF1 }}</div>
+              <div style="display:flex;align-items:center;gap:9px;font-size:12.5px;color:#9fbcdc;"><span style="color:#4F95DA;font-size:16px;">●</span>{{ t.coverF2 }}</div>
+              <div style="display:flex;align-items:center;gap:9px;font-size:12.5px;color:#9fbcdc;"><span style="color:#4F95DA;font-size:16px;">●</span>{{ t.coverF3 }}</div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ============ TAB: PROYECTO ============ -->
+      <sc-if value="{{ isProyecto }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div>
+            <div style="font-size:21px;font-weight:700;color:#15242b;">{{ t.stepProject }}</div>
+            <div style="font-size:13px;color:#6b7d83;margin-top:4px;">{{ t.projInfoSub }}</div>
+          </div>
+
+          <div style="background:#fff;border:1px solid #e4ebed;border-radius:12px;padding:8px 22px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 0;border-bottom:1px solid #eef3f4;">
+              <span style="font-size:13.5px;color:#43555b;">{{ t.projName }}</span>
+              <input type="text" value="{{ projName }}" onInput="{{ onProjName }}" placeholder="—" style="flex:0 0 260px;max-width:55%;box-sizing:border-box;padding:9px 11px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background:#fbfdfd;outline:none;text-align:right;">
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 0;border-bottom:1px solid #eef3f4;">
+              <span style="font-size:13.5px;color:#43555b;">{{ t.projLoc }}</span>
+              <input type="text" value="{{ projLoc }}" onInput="{{ onProjLoc }}" placeholder="—" style="flex:0 0 260px;max-width:55%;box-sizing:border-box;padding:9px 11px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background:#fbfdfd;outline:none;text-align:right;">
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 0;border-bottom:1px solid #eef3f4;">
+              <span style="font-size:13.5px;color:#43555b;">{{ t.projAuthor }}</span>
+              <input type="text" value="{{ projAuthor }}" onInput="{{ onProjAuthor }}" placeholder="—" style="flex:0 0 260px;max-width:55%;box-sizing:border-box;padding:9px 11px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background:#fbfdfd;outline:none;text-align:right;">
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 0;">
+              <span style="font-size:13.5px;color:#43555b;">{{ t.projDate }}</span>
+              <input type="date" value="{{ projDate }}" onInput="{{ onProjDate }}" style="flex:0 0 200px;box-sizing:border-box;padding:9px 11px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background:#fbfdfd;outline:none;text-align:right;">
+            </div>
+          </div>
+
+          <div style="background:#fff;border:1px solid #e4ebed;border-radius:12px;padding:8px 22px 18px;">
+            <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#0A6E80;font-weight:700;padding:16px 0 4px;">{{ t.normSection }}</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 0;border-bottom:1px solid #eef3f4;">
+              <span style="font-size:13.5px;color:#43555b;">{{ t.norma }}</span>
+              <select value="{{ norma }}" onChange="{{ onNorma }}" style="flex:0 0 260px;max-width:60%;box-sizing:border-box;padding:9px 26px 9px 11px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background-color:#fbfdfd;cursor:pointer;">
+                <option value="cepis">OPS/OMS — CEPIS</option>
+                <option value="ras">RAS 2000 (Colombia)</option>
+                <option value="inen">NTE INEN (Ecuador)</option>
+                <option value="awwa">AWWA / Ten States</option>
+              </select>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 0;">
+              <span style="font-size:13.5px;color:#43555b;">{{ t.waterType }}</span>
+              <select value="{{ waterType }}" onChange="{{ onWaterType }}" style="flex:0 0 260px;max-width:60%;box-sizing:border-box;padding:9px 26px 9px 11px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background-color:#fbfdfd;cursor:pointer;">
+                <option value="potable">{{ t.wtPotable }}</option>
+                <option value="residual">{{ t.wtResidual }}</option>
+                <option value="industrial">{{ t.wtIndustrial }}</option>
+                <option value="riego">{{ t.wtRiego }}</option>
+              </select>
+            </div>
+            <div style="padding:13px 0 4px;">
+              <div style="font-size:13.5px;color:#43555b;margin-bottom:8px;">{{ t.observations }}</div>
+              <textarea value="{{ projNotes }}" onInput="{{ onProjNotes }}" rows="2" placeholder="—" style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background:#fbfdfd;outline:none;resize:vertical;"></textarea>
+            </div>
+          </div>
+
+          <div style="background:#fff;border:1px solid #e4ebed;border-radius:12px;padding:18px 22px;">
+            <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#0A6E80;font-weight:700;margin-bottom:6px;">{{ t.bankTitle }}</div>
+            <div style="font-size:12.5px;color:#9aabb1;line-height:1.55;margin-bottom:14px;">{{ t.bankSub }}</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+              <select value="{{ plantSel }}" onChange="{{ onPlantSel }}" style="flex:1;min-width:240px;box-sizing:border-box;padding:10px 26px 10px 12px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background-color:#fbfdfd;cursor:pointer;">
+                <sc-for list="{{ plants }}" as="p" hint-placeholder-count="4">
+                  <option value="{{ p.key }}">{{ p.label }}</option>
+                </sc-for>
+              </select>
+              <button onClick="{{ loadPlant }}" style="font-family:inherit;cursor:pointer;border:none;background:#0A6E80;color:#fff;font-weight:600;font-size:13px;padding:11px 18px;border-radius:8px;" style-hover="background:#085a69;">{{ t.loadCase }}</button>
+              <sc-if value="{{ hasSolution }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ loadSolution }}" style="font-family:inherit;cursor:pointer;border:1px solid #cdd9dc;background:#fff;color:#0A6E80;font-weight:600;font-size:13px;padding:11px 16px;border-radius:8px;" style-hover="background:#f3f8f9;">{{ t.solBtn }}</button>
+              </sc-if>
+            </div>
+            <sc-if value="{{ hasSolution }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12px;color:#B07A0C;background:#FBF1DC;border-radius:7px;padding:9px 12px;line-height:1.5;margin-top:12px;">⚠ {{ t.exerciseTag }}</div>
+            </sc-if>
+          </div>
+
+          <div style="display:flex;justify-content:flex-end;">
+            <button onClick="{{ goWater }}" style="font-family:inherit;cursor:pointer;border:none;background:#0E97AE;color:#fff;font-weight:600;font-size:13px;padding:11px 20px;border-radius:8px;" style-hover="background:#0A6E80;">{{ t.next }} →</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ============ TAB: AGUA Y CAUDAL ============ -->
+      <sc-if value="{{ isAgua }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div>
+            <div style="font-size:21px;font-weight:700;color:#15242b;">{{ t.stepWater }}</div>
+            <div style="font-size:13px;color:#6b7d83;margin-top:4px;">{{ t.waterSub }}</div>
+          </div>
+
+          <div style="background:#fff;border:1px solid #e4ebed;border-radius:12px;padding:8px 22px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 0;border-bottom:1px solid #eef3f4;">
+              <div style="display:flex;align-items:center;gap:10px;"><span style="font-style:italic;font-family:Georgia,serif;color:#0E97AE;font-size:16px;width:18px;text-align:center;">T</span><span style="font-size:13.5px;color:#43555b;">{{ t.temperature }}</span></div>
+              <input type="number" min="0" max="100" step="0.5" value="{{ tempC }}" onInput="{{ onTemp }}" style="flex:0 0 150px;box-sizing:border-box;padding:9px 11px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:15px;color:#15242b;background:#fbfdfd;outline:none;text-align:right;">
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 0;border-bottom:1px solid #eef3f4;">
+              <div style="display:flex;align-items:center;gap:10px;"><span style="font-style:italic;font-family:Georgia,serif;color:#0E97AE;font-size:16px;width:18px;text-align:center;">Q</span><span style="font-size:13.5px;color:#43555b;">{{ t.flow }}</span></div>
+              <div style="display:flex;gap:8px;flex:0 0 auto;">
+                <input type="number" min="0" step="0.1" value="{{ flowValue }}" onInput="{{ onFlow }}" style="flex:0 0 120px;box-sizing:border-box;padding:9px 11px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:15px;color:#15242b;background:#fbfdfd;outline:none;text-align:right;">
+                <select value="{{ flowUnit }}" onChange="{{ onFlowUnit }}" style="flex:0 0 86px;box-sizing:border-box;padding:9px 24px 9px 10px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background-color:#fbfdfd;cursor:pointer;">
+                  <option value="Ls">L/s</option>
+                  <option value="m3s">m³/s</option>
+                  <option value="m3h">m³/h</option>
+                </select>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 0;">
+              <div style="display:flex;align-items:center;gap:10px;"><span style="font-style:italic;font-family:Georgia,serif;color:#0E97AE;font-size:15px;width:18px;text-align:center;">P</span><span style="font-size:13.5px;color:#43555b;">{{ t.process }}</span></div>
+              <select value="{{ process }}" onChange="{{ onProcess }}" style="flex:0 0 230px;max-width:60%;box-sizing:border-box;padding:9px 26px 9px 11px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background-color:#fbfdfd;cursor:pointer;">
+                <option value="floc">{{ t.processFloc }}</option>
+                <option value="rapid">{{ t.processRapid }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="background:#fff;border:1px solid #e4ebed;border-radius:12px;padding:18px 22px;">
+            <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#0A6E80;font-weight:700;margin-bottom:10px;">{{ t.derivedSection }}</div>
+            <div style="font-size:11.5px;color:#9aabb1;line-height:1.55;margin-bottom:14px;">{{ t.explWater }}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;">
+              <div style="flex:1;min-width:150px;background:#f3f8f9;border:1px solid #e4ebed;border-radius:9px;padding:11px 14px;">
+                <div style="font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:#6b7d83;margin-bottom:4px;">{{ t.viscosity }}</div>
+                <div style="font-size:16px;font-weight:600;color:#0A6E80;">{{ muLabel }}</div>
+              </div>
+              <div style="flex:1;min-width:150px;background:#f3f8f9;border:1px solid #e4ebed;border-radius:9px;padding:11px 14px;">
+                <div style="font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:#6b7d83;margin-bottom:4px;">{{ t.density }}</div>
+                <div style="font-size:16px;font-weight:600;color:#0A6E80;">{{ rhoLabel }}</div>
+              </div>
+              <div style="flex:1;min-width:150px;background:#f3f8f9;border:1px solid #e4ebed;border-radius:9px;padding:11px 14px;">
+                <div style="font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:#6b7d83;margin-bottom:4px;">{{ t.specWeight }}</div>
+                <div style="font-size:16px;font-weight:600;color:#0A6E80;">{{ gammaLabel }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;">
+            <button onClick="{{ goProject }}" style="font-family:inherit;cursor:pointer;border:1px solid #cdd9dc;background:#fff;color:#43555b;font-weight:600;font-size:13px;padding:11px 18px;border-radius:8px;" style-hover="background:#f3f8f9;">← {{ t.back }}</button>
+            <button onClick="{{ goFloc }}" style="font-family:inherit;cursor:pointer;border:none;background:#0E97AE;color:#fff;font-weight:600;font-size:13px;padding:11px 20px;border-radius:8px;" style-hover="background:#0A6E80;">{{ t.next }} →</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ============ TAB: FLOCULACION (TRAMOS) ============ -->
+      <sc-if value="{{ isFloc }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;">
+            <div>
+              <div style="font-size:21px;font-weight:700;color:#15242b;">{{ t.stepFloc }}</div>
+              <div style="font-size:13px;color:#6b7d83;margin-top:4px;">{{ t.flocSub }}</div>
+            </div>
+            <button onClick="{{ addChamber }}" style="font-family:inherit;cursor:pointer;border:none;background:#0E97AE;color:#fff;font-weight:600;font-size:13px;padding:10px 16px;border-radius:8px;display:inline-flex;align-items:center;gap:7px;" style-hover="background:#0A6E80;"><span style="font-size:17px;line-height:1;">+</span>{{ t.addChamber }}</button>
+          </div>
+
+          <div style="background:#f7fbfb;border:1px solid #e4ebed;border-radius:10px;padding:12px 16px;font-size:12px;color:#5e7178;line-height:1.55;">{{ t.explFloc }}</div>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <sc-for list="{{ chambers }}" as="c" hint-placeholder-count="4">
+              <div style="background:#fff;border:1px solid #e4ebed;border-radius:12px;padding:18px 20px;display:flex;flex-wrap:wrap;gap:18px;align-items:stretch;">
+                <div style="flex:1 1 440px;min-width:300px;">
+                  <div style="display:flex;align-items:center;gap:10px;margin-bottom:15px;flex-wrap:wrap;">
+                    <div style="flex:0 0 auto;width:26px;height:26px;border-radius:7px;background:#0A6E80;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;">{{ c.num }}</div>
+                    <input type="text" value="{{ c.name }}" onInput="{{ c.onName }}" style="flex:1;min-width:120px;box-sizing:border-box;padding:8px 10px;border:1px solid transparent;border-radius:7px;font-family:inherit;font-size:15px;font-weight:600;color:#15242b;background:transparent;outline:none;" style-focus="border-color:#d7e0e3;background:#fbfdfd;">
+                    <select value="{{ c.type }}" onChange="{{ c.onType }}" style="flex:0 0 auto;box-sizing:border-box;padding:8px 26px 8px 11px;border:1px solid #d7e0e3;border-radius:7px;font-family:inherit;font-size:13px;color:#15242b;background-color:#fbfdfd;cursor:pointer;">
+                      <option value="parshall">{{ t.typeParshall }}</option>
+                      <option value="hyd">{{ t.typeHyd }}</option>
+                      <option value="mec_e">{{ t.typeMecE }}</option>
+                      <option value="mec_d">{{ t.typeMecD }}</option>
+                    </select>
+                    <sc-if value="{{ c.notParshall }}" hint-placeholder-val="{{ true }}">
+                      <select value="{{ c.roleVal }}" onChange="{{ c.onRole }}" title="{{ t.etapa }}" style="flex:0 0 auto;box-sizing:border-box;padding:8px 26px 8px 11px;border:1px solid #cfe3e7;border-radius:7px;font-family:inherit;font-size:13px;color:#0A6E80;font-weight:600;background-color:#f1f8f9;cursor:pointer;">
+                        <option value="rapid">{{ t.etapaRapid }}</option>
+                        <option value="floc">{{ t.etapaFloc }}</option>
+                      </select>
+                    </sc-if>
+                    <button onClick="{{ c.onRemove }}" title="{{ t.remove }}" style="flex:0 0 auto;width:30px;height:30px;border:1px solid #e4ebed;background:#fbfdfd;color:#9aabb1;border-radius:7px;cursor:pointer;font-size:16px;line-height:1;" style-hover="border-color:#e7b9b1;color:#CC4B39;background:#fbf1ef;">×</button>
+                  </div>
+
+                  <sc-if value="{{ c.notParshall }}" hint-placeholder-val="{{ true }}">
+                    <div>
+                      <label style="display:inline-flex;align-items:center;gap:7px;font-size:12px;color:#6b7d83;margin-bottom:12px;cursor:pointer;">
+                        <input type="checkbox" checked="{{ c.useDirectV }}" onChange="{{ c.onDirect }}" style="width:15px;height:15px;accent-color:#0E97AE;cursor:pointer;">{{ t.directV }}
+                      </label>
+                      <sc-if value="{{ c.notDirectV }}" hint-placeholder-val="{{ true }}">
+                        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:12px;margin-bottom:12px;">
+                          <div>
+                            <label style="display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b7d83;margin-bottom:5px;font-weight:600;">{{ t.length }}</label>
+                            <input type="number" min="0" step="0.1" value="{{ c.L }}" onInput="{{ c.onL }}" style="width:100%;box-sizing:border-box;padding:9px 10px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background:#fbfdfd;outline:none;">
+                          </div>
+                          <div>
+                            <label style="display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b7d83;margin-bottom:5px;font-weight:600;">{{ t.width }}</label>
+                            <input type="number" min="0" step="0.1" value="{{ c.A }}" onInput="{{ c.onA }}" style="width:100%;box-sizing:border-box;padding:9px 10px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background:#fbfdfd;outline:none;">
+                          </div>
+                          <div>
+                            <label style="display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b7d83;margin-bottom:5px;font-weight:600;">{{ t.depth }}</label>
+                            <input type="number" min="0" step="0.1" value="{{ c.H }}" onInput="{{ c.onH }}" style="width:100%;box-sizing:border-box;padding:9px 10px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background:#fbfdfd;outline:none;">
+                          </div>
+                          <div>
+                            <label style="display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b7d83;margin-bottom:5px;font-weight:600;">{{ t.volume }}</label>
+                            <div style="padding:9px 10px;border:1px solid #e4ebed;border-radius:8px;background:#eef5f6;font-size:14px;color:#0A6E80;font-weight:600;">{{ c.Vlabel }}</div>
+                          </div>
+                        </div>
+                      </sc-if>
+                      <sc-if value="{{ c.useDirectV }}" hint-placeholder-val="{{ false }}">
+                        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:12px;">
+                          <div>
+                            <label style="display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b7d83;margin-bottom:5px;font-weight:600;">{{ t.volume }}</label>
+                            <input type="number" min="0" step="0.1" value="{{ c.V }}" onInput="{{ c.onV }}" style="width:100%;box-sizing:border-box;padding:9px 10px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background:#fbfdfd;outline:none;">
+                          </div>
+                        </div>
+                      </sc-if>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ c.isParshall }}" hint-placeholder-val="{{ false }}">
+                    <div>
+                      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(108px,1fr));gap:12px;">
+                        <div>
+                          <label style="display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b7d83;margin-bottom:5px;font-weight:600;">{{ t.throatWidth }}</label>
+                          <select value="{{ c.pw }}" onChange="{{ c.onPw }}" style="width:100%;box-sizing:border-box;padding:9px 26px 9px 10px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background-color:#fbfdfd;cursor:pointer;">
+                            <option value="0.076">3&quot; · 76 mm</option>
+                            <option value="0.152">6&quot; · 152 mm</option>
+                            <option value="0.229">9&quot; · 229 mm</option>
+                            <option value="0.305">12&quot; · 305 mm</option>
+                            <option value="0.457">18&quot; · 457 mm</option>
+                            <option value="0.610">24&quot; · 610 mm</option>
+                            <option value="0.915">36&quot; · 915 mm</option>
+                            <option value="1.220">48&quot; · 1220 mm</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label style="display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b7d83;margin-bottom:5px;font-weight:600;">{{ t.ha }}</label>
+                          <div style="padding:9px 10px;border:1px solid #e4ebed;border-radius:8px;background:#eef5f6;font-size:14px;color:#0A6E80;font-weight:600;">{{ c.haLabel }}</div>
+                        </div>
+                        <div>
+                          <label style="display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b7d83;margin-bottom:5px;font-weight:600;">{{ t.hfCalc }}</label>
+                          <div style="padding:9px 10px;border:1px solid #e4ebed;border-radius:8px;background:#eef5f6;font-size:14px;color:#0A6E80;font-weight:600;">{{ c.hfCalcLabel }}</div>
+                        </div>
+                        <div>
+                          <label style="display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b7d83;margin-bottom:5px;font-weight:600;">{{ t.froude }}</label>
+                          <div style="padding:9px 10px;border:1px solid #e4ebed;border-radius:8px;background:#eef5f6;font-size:14px;color:#0A6E80;font-weight:600;">{{ c.froudeLabel }}</div>
+                        </div>
+                      </div>
+                      <div style="font-size:11px;color:#9aabb1;margin-top:9px;line-height:1.5;">{{ t.parshallNote }}</div>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ c.isHyd }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;">
+                      <div>
+                        <label style="display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b7d83;margin-bottom:5px;font-weight:600;">{{ t.headloss }}</label>
+                        <input type="number" min="0" step="0.01" value="{{ c.hf }}" onInput="{{ c.onHf }}" style="width:100%;box-sizing:border-box;padding:9px 10px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background:#fbfdfd;outline:none;">
+                      </div>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ c.isMecE }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px;">
+                      <div>
+                        <label style="display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b7d83;margin-bottom:5px;font-weight:600;">{{ t.ptotal }}</label>
+                        <input type="number" min="0" step="0.1" value="{{ c.ptot }}" onInput="{{ c.onPtot }}" style="width:100%;box-sizing:border-box;padding:9px 10px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background:#fbfdfd;outline:none;">
+                      </div>
+                      <div>
+                        <label style="display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b7d83;margin-bottom:5px;font-weight:600;">{{ t.pvacio }}</label>
+                        <input type="number" min="0" step="0.1" value="{{ c.pvac }}" onInput="{{ c.onPvac }}" style="width:100%;box-sizing:border-box;padding:9px 10px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background:#fbfdfd;outline:none;">
+                      </div>
+                      <div>
+                        <label style="display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b7d83;margin-bottom:5px;font-weight:600;">{{ t.pnet }}</label>
+                        <div style="padding:9px 10px;border:1px solid #e4ebed;border-radius:8px;background:#eef5f6;font-size:14px;color:#0A6E80;font-weight:600;">{{ c.pnetLabel }}</div>
+                      </div>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ c.isMecD }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:12px;">
+                      <div>
+                        <label style="display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b7d83;margin-bottom:5px;font-weight:600;">{{ t.np }}</label>
+                        <input type="number" min="0" step="0.1" value="{{ c.np }}" onInput="{{ c.onNp }}" style="width:100%;box-sizing:border-box;padding:9px 10px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background:#fbfdfd;outline:none;">
+                      </div>
+                      <div>
+                        <label style="display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b7d83;margin-bottom:5px;font-weight:600;">{{ t.rpmMotor }}</label>
+                        <input type="number" min="0" step="1" value="{{ c.n }}" onInput="{{ c.onN }}" style="width:100%;box-sizing:border-box;padding:9px 10px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background:#fbfdfd;outline:none;">
+                      </div>
+                      <div>
+                        <label style="display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b7d83;margin-bottom:5px;font-weight:600;">{{ t.reductionRatio }}</label>
+                        <input type="number" min="1" step="0.1" value="{{ c.i }}" onInput="{{ c.onI }}" style="width:100%;box-sizing:border-box;padding:9px 10px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background:#fbfdfd;outline:none;">
+                      </div>
+                      <div>
+                        <label style="display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b7d83;margin-bottom:5px;font-weight:600;">{{ t.rpmOut }}</label>
+                        <div style="padding:9px 10px;border:1px solid #e4ebed;border-radius:8px;background:#eef5f6;font-size:14px;color:#0A6E80;font-weight:600;">{{ c.rpmOutLabel }}</div>
+                      </div>
+                      <div>
+                        <label style="display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b7d83;margin-bottom:5px;font-weight:600;">{{ t.diameter }}</label>
+                        <input type="number" min="0" step="0.05" value="{{ c.D }}" onInput="{{ c.onD }}" style="width:100%;box-sizing:border-box;padding:9px 10px;border:1px solid #d7e0e3;border-radius:8px;font-family:inherit;font-size:14px;color:#15242b;background:#fbfdfd;outline:none;">
+                      </div>
+                      <div>
+                        <label style="display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6b7d83;margin-bottom:5px;font-weight:600;">{{ t.pnet }}</label>
+                        <div style="padding:9px 10px;border:1px solid #e4ebed;border-radius:8px;background:#eef5f6;font-size:14px;color:#0A6E80;font-weight:600;">{{ c.pLabel }}</div>
+                      </div>
+                    </div>
+                  </sc-if>
+                </div>
+
+                <div style="flex:0 0 206px;background:#f7fbfb;border:1px solid #e4ebed;border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:11px;">
+                  <div>
+                    <div style="font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:#6b7d83;margin-bottom:3px;font-weight:600;">{{ t.gradient }}</div>
+                    <div style="display:flex;align-items:baseline;gap:5px;"><span style="font-size:30px;font-weight:700;line-height:1;color:{{ c.statusColor }};">{{ c.Glabel }}</span><span style="font-size:13px;color:#8a9aa0;">s⁻¹</span></div><div style="font-size:11px;color:#8a9aa0;margin-top:4px;line-height:1.4;">{{ c.vEquivLabel }}</div>
+                  </div>
+                  <div style="display:inline-flex;align-self:flex-start;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;background:{{ c.statusBg }};color:{{ c.statusColor }};font-size:11.5px;font-weight:600;"><span style="width:7px;height:7px;border-radius:50%;background:{{ c.statusColor }};"></span>{{ c.statusLabel }}</div>
+                  <div style="height:1px;background:#e4ebed;"></div>
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:11.5px;color:#6b7d83;">{{ t.retention }}</span><span style="font-size:14px;font-weight:600;color:#15242b;">{{ c.Tlabel }} <span style="font-size:11px;color:#9aabb1;font-weight:400;">· {{ c.Tmin }}</span></span></div>
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-size:11.5px;color:#6b7d83;">{{ t.camp }}</span><span style="font-size:14px;font-weight:600;color:#15242b;">{{ c.gtLabel }}</span></div>
+                </div>
+              </div>
+            </sc-for>
+
+            <sc-if value="{{ noChambers }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#fff;border:1px dashed #d4dee0;border-radius:12px;padding:40px;text-align:center;color:#8a9aa0;font-size:14px;">{{ t.emptyState }}</div>
+            </sc-if>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;">
+            <button onClick="{{ goWater }}" style="font-family:inherit;cursor:pointer;border:1px solid #cdd9dc;background:#fff;color:#43555b;font-weight:600;font-size:13px;padding:11px 18px;border-radius:8px;" style-hover="background:#f3f8f9;">← {{ t.back }}</button>
+            <button onClick="{{ goResults }}" style="font-family:inherit;cursor:pointer;border:none;background:#0E97AE;color:#fff;font-weight:600;font-size:13px;padding:11px 20px;border-radius:8px;" style-hover="background:#0A6E80;">{{ t.next }} →</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ============ TAB: RESULTADOS ============ -->
+      <sc-if value="{{ isResults }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div>
+            <div style="font-size:21px;font-weight:700;color:#15242b;">{{ t.stepResults }}</div>
+            <div style="font-size:13px;color:#6b7d83;margin-top:4px;">{{ t.resultsSub }}</div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;">
+            <div style="background:#fff;border:1px solid #e4ebed;border-radius:10px;padding:14px 16px;">
+              <div style="font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:#6b7d83;margin-bottom:6px;">{{ t.totalVolume }}</div>
+              <div style="font-size:20px;font-weight:700;color:#15242b;">{{ totalVLabel }}</div>
+            </div>
+            <div style="background:#fff;border:1px solid #e4ebed;border-radius:10px;padding:14px 16px;">
+              <div style="font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:#6b7d83;margin-bottom:6px;">{{ t.totalTime }}</div>
+              <div style="font-size:20px;font-weight:700;color:#15242b;">{{ totalTmin }}</div>
+              <div style="font-size:11px;color:#9aabb1;margin-top:2px;">{{ totalTLabel }}</div>
+            </div>
+            <div style="background:#fff;border:1px solid #e4ebed;border-radius:10px;padding:14px 16px;">
+              <div style="font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:#6b7d83;margin-bottom:6px;">{{ t.meanG }}</div>
+              <div style="font-size:20px;font-weight:700;color:#0A6E80;">{{ meanGLabel }} <span style="font-size:12px;color:#9aabb1;font-weight:400;">s⁻¹</span></div>
+            </div>
+            <div style="background:#fff;border:1px solid #e4ebed;border-radius:10px;padding:14px 16px;">
+              <div style="font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:#6b7d83;margin-bottom:6px;">{{ t.totalCamp }}</div>
+              <div style="font-size:20px;font-weight:700;color:#15242b;">{{ totalGtLabel }}</div>
+              <div style="display:inline-flex;align-items:center;gap:5px;margin-top:6px;padding:3px 9px;border-radius:999px;background:{{ gtStatusBg }};color:{{ gtStatusColor }};font-size:10.5px;font-weight:600;"><span style="width:6px;height:6px;border-radius:50%;background:{{ gtStatusColor }};"></span>{{ gtStatusLabel }}</div>
+            </div>
+          </div>
+
+          <div style="background:#fff;border:1px solid #e4ebed;border-radius:12px;padding:22px 24px;">
+            <div style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#6b7d83;font-weight:600;margin-bottom:8px;">{{ t.chartTitle }}</div>
+            <div style="font-size:11.5px;color:#9aabb1;line-height:1.55;margin-bottom:14px;">{{ t.explResults }}</div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:#8a9aa0;margin-bottom:6px;">
+              <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:14px;height:8px;background:rgba(16,151,174,.14);border-top:1px dashed rgba(16,151,174,.6);border-bottom:1px dashed rgba(16,151,174,.6);"></span>{{ bandLabel }}</span>
+              <span>máx ≈ {{ scaleMaxLabel }} s⁻¹ · {{ chartScaleNote }}</span>
+            </div>
+            <div style="position:relative;height:230px;display:flex;align-items:flex-end;gap:14px;border-bottom:2px solid #dfe7e9;padding:0 4px;">
+              <div style="position:absolute;left:0;right:0;bottom:{{ bandBottom }};height:{{ bandHeight }};background:rgba(16,151,174,.08);border-top:1px dashed rgba(16,151,174,.5);border-bottom:1px dashed rgba(16,151,174,.5);"></div>
+              <sc-for list="{{ chartBars }}" as="b" hint-placeholder-count="4">
+                <div style="position:relative;flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;z-index:1;">
+                  <div style="font-size:12px;font-weight:700;color:{{ b.color }};margin-bottom:5px;">{{ b.gLabel }}</div>
+                  <div style="width:62%;max-width:52px;height:{{ b.heightPct }};background:{{ b.color }};border-radius:6px 6px 0 0;min-height:3px;"></div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;gap:14px;padding:9px 4px 0;">
+              <sc-for list="{{ chartBars }}" as="b" hint-placeholder-count="4">
+                <div style="flex:1;text-align:center;font-size:11px;color:#6b7d83;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ b.name }}</div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:20px;padding-top:16px;border-top:1px solid #eef3f4;">
+              <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#15242b;"><span style="width:9px;height:9px;border-radius:50%;background:#1F9D6B;"></span>{{ t.optimal }}</span>
+              <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#15242b;"><span style="width:9px;height:9px;border-radius:50%;background:#B07A0C;"></span>{{ t.acceptable }}</span>
+              <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#15242b;"><span style="width:9px;height:9px;border-radius:50%;background:#CC4B39;"></span>{{ t.outRange }}</span>
+              <span style="font-size:11.5px;color:#9aabb1;margin-left:auto;">{{ rangeNote }}</span>
+            </div>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;">
+            <button onClick="{{ goFloc }}" style="font-family:inherit;cursor:pointer;border:1px solid #cdd9dc;background:#fff;color:#43555b;font-weight:600;font-size:13px;padding:11px 18px;border-radius:8px;" style-hover="background:#f3f8f9;">← {{ t.back }}</button>
+            <button onClick="{{ goVerify }}" style="font-family:inherit;cursor:pointer;border:none;background:#0E97AE;color:#fff;font-weight:600;font-size:13px;padding:11px 20px;border-radius:8px;" style-hover="background:#0A6E80;">{{ t.next }} →</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ============ TAB: VERIFICACION ============ -->
+      <sc-if value="{{ isVerify }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div>
+            <div style="font-size:21px;font-weight:700;color:#15242b;">{{ t.stepVerify }}</div>
+            <div style="font-size:13px;color:#6b7d83;margin-top:4px;">{{ t.verifySub }}</div>
+          </div>
+
+          <!-- compliance banner -->
+          <div style="background:{{ overallBg }};border:1px solid {{ overallBorder }};border-radius:12px;padding:18px 22px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+            <div style="width:46px;height:46px;border-radius:50%;background:{{ overallColor }};color:#fff;font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;">✦</div>
+            <div style="flex:1;min-width:160px;">
+              <div style="font-size:18px;font-weight:700;color:{{ overallColor }};">{{ overallTitle }}</div>
+              <div style="font-size:13px;color:#5e7178;margin-top:2px;">{{ t.complies }} {{ compliesOf }} · {{ normaLabel }}</div>
+            </div>
+          </div>
+
+          <!-- checklist -->
+          <sc-if value="{{ showSuggest }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#FBF1DC;border:1px solid #ecdcae;border-radius:10px;padding:12px 16px;">
+              <span style="font-size:12.5px;color:#8a6d18;line-height:1.5;flex:1;min-width:200px;">⚠ {{ suggestNote }}</span>
+              <button onClick="{{ suggestAction }}" style="font-family:inherit;cursor:pointer;border:none;background:#0A6E80;color:#fff;font-weight:600;font-size:12.5px;padding:9px 15px;border-radius:8px;white-space:nowrap;" style-hover="background:#085a69;">{{ suggestLabel }}</button>
+            </div>
+          </sc-if>
+          <div style="background:#fff;border:1px solid #e4ebed;border-radius:12px;overflow:hidden;">
+            <sc-for list="{{ checks }}" as="ck" hint-placeholder-count="7">
+              <div style="display:flex;align-items:flex-start;gap:14px;padding:15px 20px;border-bottom:1px solid #f1f5f6;">
+                <div style="flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:{{ ck.bg }};color:{{ ck.color }};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;">{{ ck.icon }}</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:14px;font-weight:600;color:#15242b;">{{ ck.label }}</div>
+                  <div style="font-size:12px;color:#8a9aa0;margin-top:2px;">{{ t.criterion }}: {{ ck.range }}</div>
+                  <sc-if value="{{ ck.needsFix }}" hint-placeholder-val="{{ false }}">
+                    <div style="font-size:12px;color:#CC4B39;background:#FBE7E3;border-radius:6px;padding:7px 10px;margin-top:7px;line-height:1.45;">⚙ {{ t.howToFix }}: {{ ck.fix }}</div>
+                  </sc-if>
+                </div>
+                <div style="flex:0 0 auto;text-align:right;">
+                  <div style="font-size:15px;font-weight:700;color:{{ ck.color }};">{{ ck.value }}</div>
+                  <div style="font-size:11px;font-weight:600;color:{{ ck.color }};text-transform:uppercase;letter-spacing:.04em;margin-top:1px;">{{ ck.statusText }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <!-- criterios normativos reference -->
+          <div style="background:#f7fbfb;border:1px solid #e4ebed;border-radius:12px;padding:18px 22px;">
+            <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#0A6E80;font-weight:700;margin-bottom:8px;">{{ t.criteriaTitle }}</div>
+            <div style="font-size:11.5px;color:#9aabb1;line-height:1.55;margin-bottom:12px;">{{ t.explVerify }}</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px 22px;">
+              <div style="font-size:12.5px;color:#5e7178;line-height:1.5;">{{ t.crit1 }}</div>
+              <div style="font-size:12.5px;color:#5e7178;line-height:1.5;">{{ t.crit2 }}</div>
+              <div style="font-size:12.5px;color:#5e7178;line-height:1.5;">{{ t.crit3 }}</div>
+              <div style="font-size:12.5px;color:#5e7178;line-height:1.5;">{{ t.crit4 }}</div>
+            </div>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;">
+            <button onClick="{{ goResults }}" style="font-family:inherit;cursor:pointer;border:1px solid #cdd9dc;background:#fff;color:#43555b;font-weight:600;font-size:13px;padding:11px 18px;border-radius:8px;" style-hover="background:#f3f8f9;">← {{ t.back }}</button>
+            <button onClick="{{ goReport }}" style="font-family:inherit;cursor:pointer;border:none;background:#0A6E80;color:#fff;font-weight:600;font-size:13px;padding:11px 20px;border-radius:8px;display:inline-flex;align-items:center;gap:8px;" style-hover="background:#085a69;"><span style="color:#7fe3f0;">✦</span>{{ t.genReport }}</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ============ TAB: INFORME ============ -->
+      <sc-if value="{{ isReport }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div data-noprint style="display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;">
+            <div>
+              <div style="font-size:21px;font-weight:700;color:#15242b;">{{ t.stepReport }}</div>
+              <div style="font-size:13px;color:#6b7d83;margin-top:4px;">{{ t.reportSub }}</div>
+            </div>
+            <button onClick="{{ printReport }}" style="font-family:inherit;cursor:pointer;border:none;background:#0E97AE;color:#fff;font-weight:600;font-size:13px;padding:11px 18px;border-radius:8px;display:inline-flex;align-items:center;gap:8px;" style-hover="background:#0A6E80;"><span style="color:#bdf0f7;">✦</span>{{ t.printReport }}</button>
+          </div>
+
+          <div style="background:#fff;border:1px solid #e4ebed;border-radius:12px;padding:30px 32px;">
+            <!-- report header -->
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;border-bottom:2px solid #0A6E80;padding-bottom:18px;margin-bottom:22px;flex-wrap:wrap;">
+              <div>
+                <div style="font-family:Arial,sans-serif;font-weight:700;text-transform:uppercase;font-size:20px;letter-spacing:.04em;"><span style="color:#13252b;">TERA</span><span style="color:#2F6FB2;">H2O</span></div>
+                <div style="font-family:'Century Gothic','Jost',sans-serif;font-weight:300;text-transform:uppercase;letter-spacing:.28em;font-size:9px;color:#0E97AE;margin-top:4px;">✨ Inteligencia Operativa</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:16px;font-weight:700;color:#15242b;">{{ t.reportTitle }}</div>
+                <div style="font-size:12px;color:#6b7d83;margin-top:3px;">{{ reportName }}</div>
+              </div>
+            </div>
+
+            <!-- meta grid -->
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px 24px;margin-bottom:24px;">
+              <div><div style="font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#9aabb1;margin-bottom:3px;">{{ t.projLoc }}</div><div style="font-size:13.5px;color:#15242b;font-weight:600;">{{ reportLoc }}</div></div>
+              <div><div style="font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#9aabb1;margin-bottom:3px;">{{ t.projAuthor }}</div><div style="font-size:13.5px;color:#15242b;font-weight:600;">{{ reportAuthor }}</div></div>
+              <div><div style="font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#9aabb1;margin-bottom:3px;">{{ t.projDate }}</div><div style="font-size:13.5px;color:#15242b;font-weight:600;">{{ reportDate }}</div></div>
+              <div><div style="font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#9aabb1;margin-bottom:3px;">{{ t.norma }}</div><div style="font-size:13.5px;color:#15242b;font-weight:600;">{{ normaLabel }}</div></div>
+              <div><div style="font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#9aabb1;margin-bottom:3px;">{{ t.waterType }}</div><div style="font-size:13.5px;color:#15242b;font-weight:600;">{{ waterTypeLabel }}</div></div>
+              <div><div style="font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#9aabb1;margin-bottom:3px;">{{ t.temperature }}</div><div style="font-size:13.5px;color:#15242b;font-weight:600;">{{ tempC }} °C · Q {{ flowValue }} {{ flowUnitLabel }}</div></div>
+            </div>
+
+            <!-- chambers table -->
+            <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#0A6E80;font-weight:700;margin-bottom:10px;">{{ t.stepFloc }}</div>
+            <div style="overflow-x:auto;margin-bottom:24px;">
+              <table style="width:100%;border-collapse:collapse;font-size:13px;">
+                <thead>
+                  <tr style="border-bottom:1.5px solid #d7e0e3;text-align:left;">
+                    <th style="padding:8px 10px;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:#6b7d83;font-weight:600;">#</th>
+                    <th style="padding:8px 10px;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:#6b7d83;font-weight:600;">{{ t.colChamber }}</th>
+                    <th style="padding:8px 10px;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:#6b7d83;font-weight:600;">{{ t.colType }}</th>
+                    <th style="padding:8px 10px;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:#6b7d83;font-weight:600;text-align:right;">G (s⁻¹)</th>
+                    <th style="padding:8px 10px;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:#6b7d83;font-weight:600;text-align:right;">{{ t.colT }}</th>
+                    <th style="padding:8px 10px;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:#6b7d83;font-weight:600;text-align:right;">G·T</th>
+                    <th style="padding:8px 10px;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:#6b7d83;font-weight:600;text-align:right;">{{ t.colStatus }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <sc-for list="{{ chambers }}" as="c" hint-placeholder-count="4">
+                    <tr style="border-bottom:1px solid #f1f5f6;">
+                      <td style="padding:9px 10px;color:#8a9aa0;">{{ c.num }}</td>
+                      <td style="padding:9px 10px;color:#15242b;font-weight:600;">{{ c.name }}</td>
+                      <td style="padding:9px 10px;color:#5e7178;">{{ c.typeLabel }}</td>
+                      <td style="padding:9px 10px;color:#15242b;font-weight:600;text-align:right;">{{ c.Glabel }}</td>
+                      <td style="padding:9px 10px;color:#5e7178;text-align:right;">{{ c.Tlabel }}</td>
+                      <td style="padding:9px 10px;color:#5e7178;text-align:right;">{{ c.gtLabel }}</td>
+                      <td style="padding:9px 10px;text-align:right;"><span style="display:inline-block;padding:2px 9px;border-radius:999px;background:{{ c.statusBg }};color:{{ c.statusColor }};font-size:11px;font-weight:600;">{{ c.statusLabel }}</span></td>
+                    </tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- global + verification summary -->
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;">
+              <div>
+                <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#0A6E80;font-weight:700;margin-bottom:10px;">{{ t.stepResults }}</div>
+                <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #f1f5f6;font-size:13px;"><span style="color:#5e7178;">{{ t.totalVolume }}</span><span style="color:#15242b;font-weight:600;">{{ totalVLabel }}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #f1f5f6;font-size:13px;"><span style="color:#5e7178;">{{ t.totalTime }}</span><span style="color:#15242b;font-weight:600;">{{ totalTmin }}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #f1f5f6;font-size:13px;"><span style="color:#5e7178;">{{ t.meanG }}</span><span style="color:#15242b;font-weight:600;">{{ meanGLabel }} s⁻¹</span></div>
+                <div style="display:flex;justify-content:space-between;padding:7px 0;font-size:13px;"><span style="color:#5e7178;">{{ t.totalCamp }}</span><span style="color:#15242b;font-weight:600;">{{ totalGtLabel }}</span></div>
+              </div>
+              <div>
+                <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#0A6E80;font-weight:700;margin-bottom:10px;">{{ t.stepVerify }}</div>
+                <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 13px;border-radius:999px;background:{{ overallBg }};color:{{ overallColor }};font-size:13px;font-weight:700;margin-bottom:10px;"><span style="width:8px;height:8px;border-radius:50%;background:{{ overallColor }};"></span>{{ overallTitle }} · {{ compliesOf }}</div>
+                <sc-for list="{{ checks }}" as="ck" hint-placeholder-count="7">
+                  <div style="display:flex;align-items:center;gap:9px;padding:5px 0;font-size:12.5px;">
+                    <span style="flex:0 0 auto;width:16px;height:16px;border-radius:50%;background:{{ ck.bg }};color:{{ ck.color }};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;">{{ ck.icon }}</span>
+                    <span style="flex:1;color:#43555b;">{{ ck.label }}</span>
+                    <span style="color:{{ ck.color }};font-weight:600;">{{ ck.value }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="margin-top:24px;padding-top:14px;border-top:1px solid #eef3f4;font-size:11px;color:#9aabb1;">{{ t.reportFootnote }}</div>
+            <div style="margin-top:14px;padding-top:14px;border-top:2px solid #0A6E80;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+              <div>
+                <div style="font-family:Arial,sans-serif;font-weight:700;text-transform:uppercase;font-size:16px;letter-spacing:.04em;"><span style="color:#13252b;">TERA</span><span style="color:#2F6FB2;">H2O</span></div>
+                <div style="font-family:'Century Gothic','Jost',sans-serif;font-weight:300;text-transform:uppercase;letter-spacing:.26em;font-size:8.5px;color:#0E97AE;margin-top:3px;">✨ Inteligencia Operativa</div>
+              </div>
+              <div style="font-size:11px;color:#5e7178;line-height:1.7;text-align:right;">
+                Instagram · TERAH2O&nbsp;&nbsp;·&nbsp;&nbsp;Facebook · Servicios Profesionales Tera<br>LinkedIn · TERAH2O
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <div data-noprint style="border-top:1px solid #e4ebed;background:#0d1b2e;">
+    <div style="max-width:1200px;margin:0 auto;padding:28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
+      <div>
+        <div style="font-family:Arial,sans-serif;font-weight:700;text-transform:uppercase;font-size:22px;letter-spacing:.04em;line-height:1;"><span style="color:#fff;">TERA</span><span style="color:#4F95DA;">H2O</span></div>
+        <div style="font-family:'Century Gothic','Jost',sans-serif;font-weight:300;text-transform:uppercase;letter-spacing:.3em;font-size:10px;color:#7FA8D4;margin-top:7px;">✨ Inteligencia Operativa</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5f7da3;font-weight:600;">{{ t.contactTitle }}</div>
+        <a href="https://instagram.com/TERAH2O" target="_blank" style="display:flex;align-items:center;gap:11px;text-decoration:none;color:#cfe0f2;font-size:13px;" style-hover="color:#fff;"><span style="flex:0 0 auto;width:30px;height:30px;border-radius:8px;background:#1b3052;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9fc3ec" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1.2" fill="#9fc3ec" stroke="none"></circle></svg></span>Instagram · TERAH2O</a>
+        <a href="https://facebook.com" target="_blank" style="display:flex;align-items:center;gap:11px;text-decoration:none;color:#cfe0f2;font-size:13px;" style-hover="color:#fff;"><span style="flex:0 0 auto;width:30px;height:30px;border-radius:8px;background:#1b3052;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="#9fc3ec"><path d="M14 9h3l.4-3H14V4.3c0-.9.3-1.5 1.6-1.5H17V.1C16.6.05 15.6 0 14.5 0 12 0 10.3 1.5 10.3 4v2H7.5v3h2.8v9H14V9z"></path></svg></span>Facebook · Servicios Profesionales Tera</a>
+        <a href="https://linkedin.com" target="_blank" style="display:flex;align-items:center;gap:11px;text-decoration:none;color:#cfe0f2;font-size:13px;" style-hover="color:#fff;"><span style="flex:0 0 auto;width:30px;height:30px;border-radius:8px;background:#1b3052;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="#9fc3ec"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4 0 4.75 2.45 4.75 5.65V21H18.5v-5.3c0-1.27-.02-2.9-1.77-2.9s-2.04 1.37-2.04 2.8V21H10z"></path></svg></span>LinkedIn · TERAH2O</a>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    lang: 'es', tab: 'portada', plantSel: 'cepis',
+    projName: '', projLoc: '', projAuthor: '', projDate: '', norma: 'cepis', waterType: 'potable', projNotes: '',
+    tempC: '20', flowValue: '30', flowUnit: 'Ls', process: 'floc',
+    nextId: 5,
+    chambers: [
+      { id: 1, name: 'Mezcla rápida', type: 'parshall', pw: '0.152', useDirectV: false, L: '4', A: '3', H: '3', V: '36', hf: '0.10', ptot: '5', pvac: '1', np: '1.5', n: '1750', i: '40', D: '0.5' },
+      { id: 2, name: 'Floculador 1', type: 'hyd', pw: '0.152', useDirectV: false, L: '4', A: '3', H: '3', V: '36', hf: '0.20', ptot: '5', pvac: '1', np: '1.5', n: '1750', i: '40', D: '0.5' },
+      { id: 3, name: 'Floculador 2', type: 'hyd', pw: '0.152', useDirectV: false, L: '4', A: '3', H: '3', V: '36', hf: '0.12', ptot: '5', pvac: '1', np: '1.5', n: '1750', i: '40', D: '0.5' },
+      { id: 4, name: 'Floculador 3', type: 'hyd', pw: '0.152', useDirectV: false, L: '4', A: '3', H: '3', V: '36', hf: '0.06', ptot: '5', pvac: '1', np: '1.5', n: '1750', i: '40', D: '0.5' },
+    ],
+  };
+
+  parshallTable = {
+    '0.076': { K: 0.1771, n: 1.547, N: 0.057 }, '0.152': { K: 0.3812, n: 1.580, N: 0.114 },
+    '0.229': { K: 0.5354, n: 1.530, N: 0.114 }, '0.305': { K: 0.6909, n: 1.522, N: 0.229 },
+    '0.457': { K: 1.0560, n: 1.538, N: 0.229 }, '0.610': { K: 1.4280, n: 1.550, N: 0.229 },
+    '0.915': { K: 2.1840, n: 1.566, N: 0.229 }, '1.220': { K: 2.9530, n: 1.578, N: 0.229 },
+  };
+
+  dict = {
+    es: {
+      toolName: 'Gradiente de velocidad · floculación', switchLang: 'ENGLISH', genReport: 'Generar Informe',
+      next: 'Siguiente', back: 'Atrás',
+      stepCover: 'Inicio',
+      contactTitle: 'Contáctanos',
+      coverTitle: 'Calculadora del gradiente de velocidad para floculadores',
+      coverSub: 'Evalúa la mezcla rápida y la floculación tramo por tramo: gradiente G, tiempo de retención, número de Camp y verificación contra criterios normativos, con informe imprimible.',
+      coverStart: 'Iniciar evaluación', coverQuick: 'Ir directo a los cálculos',
+      coverF1: 'Mezcla rápida e hidráulica', coverF2: 'Verificación con semáforo', coverF3: 'Informe PDF',
+      stepProject: 'Proyecto', stepWater: 'Agua y caudal', stepFloc: 'Floculación', stepResults: 'Resultados', stepVerify: 'Verificación', stepReport: 'Informe',
+      projInfoSub: 'Identificación del proyecto y norma de referencia.',
+      projName: 'Nombre del proyecto', projLoc: 'Ubicación', projAuthor: 'Diseñador / Responsable', projDate: 'Fecha',
+      normSection: 'Norma y alcance', norma: 'Norma de diseño', waterType: 'Tipo de tratamiento',
+      wtPotable: 'Agua potable', wtResidual: 'Agua residual tratada', wtIndustrial: 'Agua industrial', wtRiego: 'Agua de riego',
+      observations: 'Observaciones',
+      bankTitle: 'Banco de datos de plantas', bankSub: 'Carga una configuración real de planta para evaluar sus gradientes; luego ajústala en las demás pestañas.', loadCase: 'Cargar caso',
+      waterSub: 'La temperatura define μ y ρ del agua automáticamente.',
+      temperature: 'Temperatura del agua (°C)', flow: 'Caudal de diseño (Q)', process: 'Proceso (tramos)',
+      processFloc: 'Floculación', processRapid: 'Mezcla rápida / Coagulación',
+      derivedSection: 'Condiciones globales del agua', viscosity: 'Viscosidad dinámica μ', density: 'Densidad ρ', specWeight: 'Peso específico γ',
+      flocSub: 'Cada cámara: mezcla rápida (Parshall), hidráulica o mecánica.',
+      addChamber: 'Agregar tramo', directV: 'Ingresar volumen directo',
+      length: 'Largo (m)', width: 'Ancho (m)', depth: 'Profundidad (m)', volume: 'Volumen (m³)',
+      headloss: 'Pérdida de carga hf (m)', ptotal: 'Potencia operación (kW)', pvacio: 'Potencia en vacío (kW)', pnet: 'Potencia neta',
+      np: 'Número de potencia Np', rpmMotor: 'RPM motor', reductionRatio: 'Reducción i', rpmOut: 'RPM salida', diameter: 'Diámetro paleta D (m)',
+      throatWidth: 'Ancho garganta W', ha: 'Carga Ha', hfCalc: 'hf estimada', froude: 'Froude F₁',
+      parshallNote: 'hf y T se estiman con el resalto hidráulico a partir de Q y del ancho de garganta W.',
+      typeParshall: 'Mezcla rápida (Parshall)', typeHyd: 'Hidráulica (pérdida de carga)', typeMecE: 'Mecánica (medición eléctrica)', typeMecD: 'Mecánica (diseño Np)',
+      etapa: 'Etapa de evaluación', etapaRapid: 'Etapa: mezcla rápida', etapaFloc: 'Etapa: floculación',
+      gradient: 'Gradiente G', retention: 'Retención T', camp: 'Camp G·T', remove: 'Eliminar tramo',
+      resultsSub: 'Resumen del tren de floculación y gráfico por cámara.',
+      totalVolume: 'Volumen total', totalTime: 'Tiempo total', meanG: 'G promedio', totalCamp: 'Camp total (Σ G·T)',
+      chartTitle: 'Gradiente G por cámara', chartScaleNote: 'escala log', optimal: 'Óptimo', acceptable: 'Aceptable', outRange: 'Fuera de rango',
+      emptyState: 'Agrega un tramo para comenzar el cálculo.',
+      verifySub: 'Evaluación de la floculación contra los criterios normativos.',
+      complies: 'Cumplimiento', criterion: 'Criterio', criteriaTitle: 'Criterios normativos de referencia',
+      crit1: 'Mezcla rápida: G ≈ 700–1000 s⁻¹, tiempo < 60 s.', crit2: 'Floculación: G ≈ 20–70 s⁻¹ (rango 10–100).',
+      crit3: 'Gradiente escalonado decreciente entre cámaras.', crit4: 'Camp (G·T) total ≈ 30 000–150 000 · 3 o más cámaras.',
+      chkRapidG: 'G de mezcla rápida', chkRapidT: 'Tiempo de mezcla rápida', chkFlocG: 'G de floculación', chkTaper: 'Gradiente decreciente', chkFlocT: 'Tiempo de floculación', chkCamp: 'Número de Camp (G·T)', chkNum: 'Número de cámaras',
+      howToFix: 'Cómo corregir', solBtn: 'Ver solución sugerida', genSolBtn: 'Generar solución sugerida', exerciseTag: 'Ejercicio con errores a propósito — corrige en las pestañas hasta cumplir la verificación.', suggestNote: 'El diseño está fuera de rango. Genera una configuración de referencia que cumple los criterios (mezcla rápida + 3 cámaras escalonadas) con tu caudal y temperatura.',
+      fix: {
+        rapidG: 'Ajusta el ancho de garganta W (o la potencia/RPM) de la mezcla rápida para llevar G a 700–1000 s⁻¹.',
+        rapidT: 'Reduce el volumen o la longitud de la cámara de mezcla rápida para que T sea menor a 60 s.',
+        flocG: 'Ajusta la pérdida de carga hf (espaciado de pantallas / velocidad) o el volumen para llevar G a 20–70 s⁻¹.',
+        taper: 'Ordena las cámaras con G decreciente: reduce hf (o las RPM) de una cámara a la siguiente.',
+        flocT: 'Cambia el volumen total de floculación o el caudal para que el tiempo sume 15–30 min.',
+        camp: 'Ajusta G y los tiempos: el producto G·T total debe quedar entre 30 000 y 150 000.',
+        num: 'Agrega cámaras de floculación: se recomiendan 3 o más.',
+      },
+      statusOk: 'Cumple', statusAcc: 'Aceptable', statusReview: 'Revisar', statusNA: 'N/A',
+      overallOk: 'Diseño conforme', overallAcc: 'Conforme con observaciones', overallBad: 'Requiere ajustes', overallNone: 'Sin datos suficientes',
+      reportSub: 'Reporte imprimible con todos los resultados.', printReport: 'Imprimir / Guardar PDF',
+      reportTitle: 'Informe de gradientes de velocidad',
+      colChamber: 'Cámara', colType: 'Tipo', colT: 'T', colStatus: 'Estado',
+      reportFootnote: 'Valores calculados con μ y ρ en función de la temperatura. Parshall por resalto hidráulico (método CEPIS). Documento generado por la consola TERAH2O.',
+      explWater: 'Cómo se obtiene: μ (viscosidad) y ρ (densidad) salen de ecuaciones estándar del agua según la temperatura; γ = ρ · g.',
+      explFloc: 'Cómo se obtiene G en cada cámara — Parshall (mezcla rápida): por el resalto hidráulico a partir de Q y W. Hidráulica: G = √(ρ·g·hf / (μ·T)), con T = V/Q. Mecánica: G = √(P / (μ·V)). El color indica si G cae en el rango recomendado.',
+      explResults: 'Cómo se obtiene: T total = ΣV / Q · G promedio = Σ(G·T) / ΣT · Camp total = Σ(G·T). El gráfico usa escala logarítmica para mostrar juntas la mezcla rápida (~700) y la floculación (~30).',
+      explVerify: 'Cada fila compara el valor calculado contra el rango de la norma elegida: verde cumple, ámbar aceptable, rojo requiere revisión.',
+      formulasSection: 'Fórmulas utilizadas',
+    },
+    en: {
+      toolName: 'Velocity gradient · flocculation', switchLang: 'ESPAÑOL', genReport: 'Generate Report',
+      next: 'Next', back: 'Back',
+      stepCover: 'Home',
+      contactTitle: 'Contact us',
+      coverTitle: 'Velocity gradient calculator for flocculators',
+      coverSub: 'Evaluate rapid mix and flocculation stage by stage: gradient G, retention time, Camp number and verification against normative criteria, with a printable report.',
+      coverStart: 'Start evaluation', coverQuick: 'Go straight to the calculations',
+      coverF1: 'Rapid mix & hydraulic', coverF2: 'Traffic-light verification', coverF3: 'PDF report',
+      stepProject: 'Project', stepWater: 'Water & flow', stepFloc: 'Flocculation', stepResults: 'Results', stepVerify: 'Verification', stepReport: 'Report',
+      projInfoSub: 'Project identification and design standard.',
+      projName: 'Project name', projLoc: 'Location', projAuthor: 'Designer / Engineer', projDate: 'Date',
+      normSection: 'Standard & scope', norma: 'Design standard', waterType: 'Treatment type',
+      wtPotable: 'Drinking water', wtResidual: 'Treated wastewater', wtIndustrial: 'Industrial water', wtRiego: 'Irrigation water',
+      observations: 'Notes',
+      bankTitle: 'Plant data bank', bankSub: 'Load a real plant configuration to evaluate its gradients; then tweak it in the other tabs.', loadCase: 'Load case',
+      waterSub: 'Temperature sets water μ and ρ automatically.',
+      temperature: 'Water temperature (°C)', flow: 'Design flow (Q)', process: 'Process (stages)',
+      processFloc: 'Flocculation', processRapid: 'Rapid mix / Coagulation',
+      derivedSection: 'Global water conditions', viscosity: 'Dynamic viscosity μ', density: 'Density ρ', specWeight: 'Specific weight γ',
+      flocSub: 'Each chamber: rapid mix (Parshall), hydraulic or mechanical.',
+      addChamber: 'Add stage', directV: 'Enter volume directly',
+      length: 'Length (m)', width: 'Width (m)', depth: 'Depth (m)', volume: 'Volume (m³)',
+      headloss: 'Head loss hf (m)', ptotal: 'Operating power (kW)', pvacio: 'No-load power (kW)', pnet: 'Net power',
+      np: 'Power number Np', rpmMotor: 'Motor RPM', reductionRatio: 'Reduction i', rpmOut: 'Output RPM', diameter: 'Impeller diameter D (m)',
+      throatWidth: 'Throat width W', ha: 'Head Ha', hfCalc: 'Estimated hf', froude: 'Froude F₁',
+      parshallNote: 'hf and T are estimated from the hydraulic jump using Q and the throat width W.',
+      typeParshall: 'Rapid mix (Parshall)', typeHyd: 'Hydraulic (head loss)', typeMecE: 'Mechanical (electrical)', typeMecD: 'Mechanical (design Np)',
+      etapa: 'Evaluation stage', etapaRapid: 'Stage: rapid mix', etapaFloc: 'Stage: flocculation',
+      gradient: 'Gradient G', retention: 'Retention T', camp: 'Camp G·T', remove: 'Remove stage',
+      resultsSub: 'Flocculation train summary and per-chamber chart.',
+      totalVolume: 'Total volume', totalTime: 'Total time', meanG: 'Mean G', totalCamp: 'Total Camp (Σ G·T)',
+      chartTitle: 'Gradient G per chamber', chartScaleNote: 'log scale', optimal: 'Optimal', acceptable: 'Acceptable', outRange: 'Out of range',
+      emptyState: 'Add a stage to start the calculation.',
+      verifySub: 'Flocculation evaluated against normative criteria.',
+      complies: 'Compliance', criterion: 'Criterion', criteriaTitle: 'Reference normative criteria',
+      crit1: 'Rapid mix: G ≈ 700–1000 s⁻¹, time < 60 s.', crit2: 'Flocculation: G ≈ 20–70 s⁻¹ (range 10–100).',
+      crit3: 'Tapered (decreasing) gradient between chambers.', crit4: 'Total Camp (G·T) ≈ 30,000–150,000 · 3+ chambers.',
+      chkRapidG: 'Rapid-mix G', chkRapidT: 'Rapid-mix time', chkFlocG: 'Flocculation G', chkTaper: 'Tapered gradient', chkFlocT: 'Flocculation time', chkCamp: 'Camp number (G·T)', chkNum: 'Number of chambers',
+      howToFix: 'How to fix', solBtn: 'View suggested solution', genSolBtn: 'Generate suggested solution', exerciseTag: 'Exercise with intentional errors — fix it in the tabs until verification passes.', suggestNote: 'The design is out of range. Generate a reference configuration that meets the criteria (rapid mix + 3 tapered chambers) from your flow and temperature.',
+      fix: {
+        rapidG: 'Adjust the rapid-mix throat width W (or the power/RPM) to bring G to 700–1000 s⁻¹.',
+        rapidT: 'Reduce the volume or length of the rapid-mix chamber so T is below 60 s.',
+        flocG: 'Adjust head loss hf (baffle spacing / velocity) or the volume to bring G to 20–70 s⁻¹.',
+        taper: 'Order chambers with decreasing G: reduce hf (or RPM) from one chamber to the next.',
+        flocT: 'Change the total flocculation volume or the flow so the time adds up to 15–30 min.',
+        camp: 'Adjust G and times: the total G·T product must fall between 30,000 and 150,000.',
+        num: 'Add flocculation chambers: 3 or more are recommended.',
+      },
+      statusOk: 'Pass', statusAcc: 'Acceptable', statusReview: 'Review', statusNA: 'N/A',
+      overallOk: 'Design compliant', overallAcc: 'Compliant with notes', overallBad: 'Needs adjustment', overallNone: 'Not enough data',
+      reportSub: 'Printable report with all results.', printReport: 'Print / Save PDF',
+      reportTitle: 'Velocity gradient report',
+      colChamber: 'Chamber', colType: 'Type', colT: 'T', colStatus: 'Status',
+      reportFootnote: 'Values computed with μ and ρ as a function of temperature. Parshall via hydraulic jump (CEPIS method). Generated by the TERAH2O console.',
+      explWater: 'How it works: μ (viscosity) and ρ (density) come from standard water equations as a function of temperature; γ = ρ · g.',
+      explFloc: 'How G is obtained per chamber — Parshall (rapid mix): from the hydraulic jump using Q and W. Hydraulic: G = √(ρ·g·hf / (μ·T)), with T = V/Q. Mechanical: G = √(P / (μ·V)). Colour shows whether G falls in the recommended range.',
+      explResults: 'How it works: total T = ΣV / Q · mean G = Σ(G·T) / ΣT · total Camp = Σ(G·T). The chart uses a log scale to show rapid mix (~700) and flocculation (~30) together.',
+      explVerify: 'Each row compares the computed value against the selected standard range: green passes, amber acceptable, red needs review.',
+      formulasSection: 'Formulas used',
+    },
+  };
+
+  num(v) { const x = parseFloat(v); return isFinite(x) ? x : 0; }
+
+  waterProps() {
+    const T = this.num(this.state.tempC);
+    const mu = 2.414e-5 * Math.pow(10, 247.8 / ((T + 273.15) - 140));
+    const rho = 1000 * (1 - (T + 288.9414) / (508929.2 * (T + 68.12963)) * Math.pow(T - 3.9863, 2));
+    return { mu, rho, gamma: rho * 9.81 };
+  }
+
+  Q() { const v = this.num(this.state.flowValue), u = this.state.flowUnit; return u === 'Ls' ? v / 1000 : u === 'm3h' ? v / 3600 : v; }
+
+  fmt(n, d) { if (!isFinite(n)) return '—'; return Number(n).toLocaleString(this.state.lang === 'es' ? 'es-ES' : 'en-US', { minimumFractionDigits: d, maximumFractionDigits: d }); }
+
+  solveV1(q, E1) {
+    const g = 9.81, dc = Math.cbrt(q * q / g), vc = Math.sqrt(g * dc);
+    const f = v => v * v / (2 * g) + q / v - E1;
+    let lo = vc, hi = vc * 200; if (f(lo) > 0) return vc;
+    for (let k = 0; k < 80; k++) { const mid = (lo + hi) / 2; if (f(mid) > 0) hi = mid; else lo = mid; }
+    return (lo + hi) / 2;
+  }
+
+  computeChamber(c, Q, mu, rho) {
+    const g = 9.81;
+    if (c.type === 'parshall') {
+      const W = this.num(c.pw), tab = this.parshallTable[c.pw] || this.parshallTable['0.152'];
+      if (Q > 0 && W > 0) {
+        const Ha = Math.pow(Q / tab.K, 1 / tab.n), q = Q / W, E1 = Ha + tab.N;
+        const v1 = this.solveV1(q, E1), d1 = q / v1, F1 = v1 / Math.sqrt(g * d1);
+        const d2 = (d1 / 2) * (Math.sqrt(1 + 8 * F1 * F1) - 1), v2 = q / d2;
+        const hf = Math.pow(d2 - d1, 3) / (4 * d1 * d2), Lj = 6 * (d2 - d1), Tj = Lj / ((v1 + v2) / 2), Vmix = Lj * W * ((d1 + d2) / 2);
+        const G = (Tj > 0 && mu > 0 && hf > 0) ? Math.sqrt(rho * g * hf / (mu * Tj)) : 0;
+        return { V: Vmix, Tsec: Tj, G, gt: G * Tj, P: 0, Ha, hfCalc: hf, F1 };
+      }
+      return { V: 0, Tsec: 0, G: 0, gt: 0, P: 0, Ha: 0, hfCalc: 0, F1: 0 };
+    }
+    const V = c.useDirectV ? this.num(c.V) : this.num(c.L) * this.num(c.A) * this.num(c.H);
+    const Tsec = Q > 0 ? V / Q : 0;
+    let G = 0, P = 0;
+    if (c.type === 'hyd') {
+      G = (Tsec > 0 && mu > 0) ? Math.sqrt(rho * g * this.num(c.hf) / (mu * Tsec)) : 0;
+    } else if (c.type === 'mec_e') {
+      P = (this.num(c.ptot) - this.num(c.pvac)) * 1000;
+      G = (V > 0 && mu > 0 && P > 0) ? Math.sqrt(P / (mu * V)) : 0;
+    } else if (c.type === 'mec_d') {
+      const ratio = this.num(c.i) || 1, nps = (this.num(c.n) / ratio) / 60;
+      P = this.num(c.np) * rho * Math.pow(nps, 3) * Math.pow(this.num(c.D), 5);
+      G = (V > 0 && mu > 0 && P > 0) ? Math.sqrt(P / (mu * V)) : 0;
+    }
+    return { V, Tsec, G, gt: G * Tsec, P, Ha: 0, hfCalc: 0, F1: 0 };
+  }
+
+  colors(key) {
+    return ({ optimal: { color: '#1F9D6B', bg: '#E6F5EE' }, acceptable: { color: '#B07A0C', bg: '#FBF1DC' }, out: { color: '#CC4B39', bg: '#FBE7E3' }, none: { color: '#6b7d83', bg: '#eef3f4' } })[key];
+  }
+
+  evalG(G, role) {
+    const t = this.dict[this.state.lang];
+    if (!(G > 0)) return { ...this.colors('none'), label: '—' };
+    let key;
+    if (role === 'rapid') key = (G >= 700 && G <= 1000) ? 'optimal' : ((G >= 500 && G < 700) || (G > 1000 && G <= 1500)) ? 'acceptable' : 'out';
+    else key = (G >= 20 && G <= 70) ? 'optimal' : ((G >= 10 && G < 20) || (G > 70 && G <= 100)) ? 'acceptable' : 'out';
+    const label = key === 'optimal' ? t.optimal : key === 'acceptable' ? t.acceptable : t.outRange;
+    return { ...this.colors(key), label, key };
+  }
+
+  evalGtTotal(gt) {
+    const t = this.dict[this.state.lang];
+    if (this.state.process !== 'floc' || !(gt > 0)) return { ...this.colors('none'), label: '—' };
+    let key = (gt >= 30000 && gt <= 150000) ? 'optimal' : ((gt >= 10000 && gt < 30000) || (gt > 150000 && gt <= 250000)) ? 'acceptable' : 'out';
+    const label = key === 'optimal' ? t.optimal : key === 'acceptable' ? t.acceptable : t.outRange;
+    return { ...this.colors(key), label };
+  }
+
+  typeLabel(type) { const t = this.dict[this.state.lang]; return type === 'parshall' ? t.typeParshall : type === 'hyd' ? t.typeHyd : type === 'mec_e' ? t.typeMecE : t.typeMecD; }
+
+  ckMeta(key) {
+    const t = this.dict[this.state.lang], c = this.colors(key === 'none' ? 'none' : key);
+    const icon = key === 'optimal' ? '✓' : key === 'acceptable' ? '!' : key === 'out' ? '✕' : '–';
+    const statusText = key === 'optimal' ? t.statusOk : key === 'acceptable' ? t.statusAcc : key === 'out' ? t.statusReview : t.statusNA;
+    return { color: c.color, bg: c.bg, icon, statusText };
+  }
+
+  update(id, field, value) { this.setState(s => ({ chambers: s.chambers.map(c => c.id === id ? { ...c, [field]: value } : c) })); }
+  removeChamber(id) { this.setState(s => ({ chambers: s.chambers.filter(c => c.id !== id) })); }
+  addChamber() {
+    this.setState(s => ({ nextId: s.nextId + 1, chambers: [...s.chambers, { id: s.nextId, name: (s.lang === 'es' ? 'Tramo ' : 'Stage ') + (s.chambers.length + 1), type: 'hyd', pw: '0.152', useDirectV: false, L: '4', A: '3', H: '3', V: '36', hf: '0.10', ptot: '5', pvac: '1', np: '1.5', n: '1750', i: '40', D: '0.5' }] }));
+  }
+  setTab(tab) { this.setState({ tab }); if (typeof window !== 'undefined') window.scrollTo({ top: 0 }); }
+
+  mkCh(o) { return Object.assign({ type: 'hyd', role: 'floc', pw: '0.152', useDirectV: false, L: '4', A: '3', H: '3', V: '36', hf: '0.10', ptot: '5', pvac: '1', np: '1.5', n: '1750', i: '40', D: '0.5' }, o); }
+
+  plants = [
+    { key: 'cepis', labelEs: 'Convencional — Parshall + pantallas (CEPIS)', labelEn: 'Conventional — Parshall + baffles (CEPIS)', tempC: '18', flowValue: '80', flowUnit: 'Ls', process: 'floc', chambers: [
+      { name: 'Mezcla rápida', type: 'parshall', pw: '0.305' },
+      { name: 'Pantallas 1', type: 'hyd', L: '4', A: '2', H: '3', hf: '0.08' },
+      { name: 'Pantallas 2', type: 'hyd', L: '4', A: '2', H: '3', hf: '0.05' },
+      { name: 'Pantallas 3', type: 'hyd', L: '4', A: '2', H: '3', hf: '0.03' },
+    ] },
+    { key: 'mixmec', labelEs: 'Mezcla mecánica + floculación hidráulica', labelEn: 'Mechanical flash mix + hydraulic floc', tempC: '20', flowValue: '50', flowUnit: 'Ls', process: 'floc', chambers: [
+      { name: 'Mezcla rápida', type: 'mec_e', role: 'rapid', L: '1.2', A: '1.2', H: '1.2', ptot: '1.4', pvac: '0.55' },
+      { name: 'Floculador 1', type: 'hyd', L: '4', A: '2.5', H: '2', hf: '0.08' },
+      { name: 'Floculador 2', type: 'hyd', L: '4', A: '2.5', H: '2', hf: '0.05' },
+      { name: 'Floculador 3', type: 'hyd', L: '4', A: '2.5', H: '2', hf: '0.03' },
+    ] },
+    { key: 'compacta', labelEs: 'Compacta — Parshall 6" (ejemplo base)', labelEn: 'Compact — 6" Parshall (base example)', tempC: '20', flowValue: '30', flowUnit: 'Ls', process: 'floc', chambers: [
+      { name: 'Mezcla rápida', type: 'parshall', pw: '0.152' },
+      { name: 'Floculador 1', type: 'hyd', hf: '0.20' },
+      { name: 'Floculador 2', type: 'hyd', hf: '0.12' },
+      { name: 'Floculador 3', type: 'hyd', hf: '0.06' },
+    ] },
+    { key: 'grande', labelEs: 'Planta grande — alta capacidad', labelEn: 'Large plant — high capacity', tempC: '22', flowValue: '300', flowUnit: 'Ls', process: 'floc', chambers: [
+      { name: 'Mezcla rápida', type: 'parshall', pw: '0.610' },
+      { name: 'Floculador 1', type: 'hyd', L: '5', A: '5', H: '3', hf: '0.10' },
+      { name: 'Floculador 2', type: 'hyd', L: '5', A: '5', H: '3', hf: '0.07' },
+      { name: 'Floculador 3', type: 'hyd', L: '5', A: '5', H: '3', hf: '0.05' },
+      { name: 'Floculador 4', type: 'hyd', L: '5', A: '5', H: '3', hf: '0.03' },
+    ] },
+    { key: 'ej1', labelEs: '⚠ Ejercicio 1 — gradiente invertido', labelEn: '⚠ Exercise 1 — inverted gradient', exercise: true, tempC: '20', flowValue: '60', flowUnit: 'Ls', process: 'floc',
+      chambers: [
+        { name: 'Mezcla rápida', type: 'parshall', pw: '0.152' },
+        { name: 'Floculador 1', type: 'hyd', L: '4', A: '3', H: '3', hf: '0.04' },
+        { name: 'Floculador 2', type: 'hyd', L: '4', A: '3', H: '3', hf: '0.10' },
+        { name: 'Floculador 3', type: 'hyd', L: '4', A: '3', H: '3', hf: '0.22' },
+      ],
+      solution: { tempC: '20', flowValue: '60', flowUnit: 'Ls', process: 'floc', chambers: [
+        { name: 'Mezcla rápida', type: 'parshall', pw: '0.152' },
+        { name: 'Floculador 1', type: 'hyd', L: '4', A: '3', H: '3', hf: '0.18' },
+        { name: 'Floculador 2', type: 'hyd', L: '4', A: '3', H: '3', hf: '0.10' },
+        { name: 'Floculador 3', type: 'hyd', L: '4', A: '3', H: '3', hf: '0.05' },
+      ] } },
+    { key: 'ej2', labelEs: '⚠ Ejercicio 2 — floculación intensa / pocas cámaras', labelEn: '⚠ Exercise 2 — intense floc / too few chambers', exercise: true, tempC: '25', flowValue: '40', flowUnit: 'Ls', process: 'floc',
+      chambers: [
+        { name: 'Mezcla rápida', type: 'parshall', pw: '0.152' },
+        { name: 'Floculador 1', type: 'hyd', L: '2', A: '2', H: '1.5', hf: '0.30' },
+        { name: 'Floculador 2', type: 'hyd', L: '2', A: '2', H: '1.5', hf: '0.20' },
+      ],
+      solution: { tempC: '25', flowValue: '40', flowUnit: 'Ls', process: 'floc', chambers: [
+        { name: 'Mezcla rápida', type: 'parshall', pw: '0.152' },
+        { name: 'Floculador 1', type: 'hyd', L: '4', A: '2', H: '3', hf: '0.14' },
+        { name: 'Floculador 2', type: 'hyd', L: '4', A: '2', H: '3', hf: '0.09' },
+        { name: 'Floculador 3', type: 'hyd', L: '4', A: '2', H: '3', hf: '0.045' },
+      ] } },
+  ];
+
+  loadPlant() {
+    const p = this.plants.find(x => x.key === this.state.plantSel);
+    if (!p) return;
+    let id = 1;
+    const chambers = p.chambers.map(o => this.mkCh({ ...o, id: id++ }));
+    this.setState({ tempC: p.tempC, flowValue: p.flowValue, flowUnit: p.flowUnit, process: p.process, chambers, nextId: id });
+  }
+
+  loadSolution() {
+    const p = this.plants.find(x => x.key === this.state.plantSel);
+    if (!p || !p.solution) return;
+    const sol = p.solution;
+    let id = 1;
+    const chambers = sol.chambers.map(o => this.mkCh({ ...o, id: id++ }));
+    this.setState({ tempC: sol.tempC || p.tempC, flowValue: sol.flowValue || p.flowValue, flowUnit: sol.flowUnit || p.flowUnit, process: sol.process || p.process, chambers, nextId: id });
+  }
+
+  changeType(id, newType) {
+    this.setState(s => ({ chambers: s.chambers.map(c => {
+      if (c.id !== id) return c;
+      let role = c.role;
+      if (c.type === 'parshall' || newType === 'parshall') role = 'rapid';
+      else if (!role) role = s.process;
+      return { ...c, type: newType, role };
+    }) }));
+  }
+
+  autoSolution() {
+    const wp = this.waterProps(), Q = this.Q();
+    if (Q <= 0) return;
+    const pickW = Q < 0.03 ? '0.152' : Q < 0.08 ? '0.229' : Q < 0.15 ? '0.305' : Q < 0.3 ? '0.457' : '0.610';
+    const T = 600;
+    const Vea = (Q * T).toFixed(2);
+    const hfFor = G => (G * G * wp.mu * T / (wp.rho * 9.81)).toFixed(3);
+    const targets = [60, 40, 25];
+    let id = 1;
+    const chambers = [
+      this.mkCh({ id: id++, name: 'Mezcla rápida', type: 'parshall', role: 'rapid', pw: pickW }),
+      ...targets.map((G, k) => this.mkCh({ id: id++, name: 'Floculador ' + (k + 1), type: 'hyd', role: 'floc', useDirectV: true, V: Vea, hf: hfFor(G) })),
+    ];
+    this.setState({ process: 'floc', chambers, nextId: id });
+  }
+
+  renderVals() {
+    const s = this.state, t = this.dict[s.lang], wp = this.waterProps(), Q = this.Q();
+    const items = s.chambers.map(c => ({ raw: c, r: this.computeChamber(c, Q, wp.mu, wp.rho), role: c.type === 'parshall' ? 'rapid' : (c.role || s.process) }));
+
+    const chambers = items.map(({ raw: c, r, role }, idx) => {
+      const ev = this.evalG(r.G, role), rpmOut = this.num(c.n) / (this.num(c.i) || 1);
+      return {
+        id: c.id, num: idx + 1, name: c.name, type: c.type, typeLabel: this.typeLabel(c.type),
+        useDirectV: c.useDirectV, notDirectV: !c.useDirectV,
+        isParshall: c.type === 'parshall', notParshall: c.type !== 'parshall',
+        roleVal: c.role || s.process,
+        isHyd: c.type === 'hyd', isMecE: c.type === 'mec_e', isMecD: c.type === 'mec_d',
+        L: c.L, A: c.A, H: c.H, V: c.V, hf: c.hf, ptot: c.ptot, pvac: c.pvac, np: c.np, n: c.n, i: c.i, D: c.D, pw: c.pw,
+        Vlabel: this.fmt(r.V, 2) + ' m³',
+        Tlabel: this.fmt(r.Tsec, r.Tsec < 10 ? 1 : 0) + ' s', Tmin: this.fmt(r.Tsec / 60, 1) + ' min',
+        Glabel: this.fmt(r.G, 1), gtLabel: this.fmt(r.gt, 0),
+        vEquivLabel: '≈ ' + this.fmt(r.G * 0.01, 2) + (s.lang === 'es' ? ' m/s entre capas a 1 cm' : ' m/s between layers 1 cm apart'),
+        pnetLabel: this.fmt(this.num(c.ptot) - this.num(c.pvac), 2) + ' kW', pLabel: this.fmt(r.P / 1000, 2) + ' kW', rpmOutLabel: this.fmt(rpmOut, 1) + ' RPM',
+        haLabel: this.fmt(r.Ha, 3) + ' m', hfCalcLabel: this.fmt(r.hfCalc, 4) + ' m', froudeLabel: this.fmt(r.F1, 2),
+        statusLabel: ev.label, statusColor: ev.color, statusBg: ev.bg,
+        onName: e => this.update(c.id, 'name', e.target.value), onType: e => this.changeType(c.id, e.target.value), onPw: e => this.update(c.id, 'pw', e.target.value), onRole: e => this.update(c.id, 'role', e.target.value),
+        onDirect: e => this.update(c.id, 'useDirectV', e.target.checked),
+        onL: e => this.update(c.id, 'L', e.target.value), onA: e => this.update(c.id, 'A', e.target.value), onH: e => this.update(c.id, 'H', e.target.value), onV: e => this.update(c.id, 'V', e.target.value),
+        onHf: e => this.update(c.id, 'hf', e.target.value), onPtot: e => this.update(c.id, 'ptot', e.target.value), onPvac: e => this.update(c.id, 'pvac', e.target.value),
+        onNp: e => this.update(c.id, 'np', e.target.value), onN: e => this.update(c.id, 'n', e.target.value), onI: e => this.update(c.id, 'i', e.target.value), onD: e => this.update(c.id, 'D', e.target.value),
+        onRemove: () => this.removeChamber(c.id),
+      };
+    });
+
+    const totalV = items.reduce((a, b) => a + b.r.V, 0), totalT = items.reduce((a, b) => a + b.r.Tsec, 0), totalGt = items.reduce((a, b) => a + b.r.gt, 0);
+    const meanG = totalT > 0 ? totalGt / totalT : 0, gtEv = this.evalGtTotal(totalGt);
+
+    // chart (log scale)
+    const band = s.process === 'floc' ? { low: 20, high: 70 } : { low: 700, high: 1000 };
+    const maxG = Math.max(1, ...items.map(c => c.r.G)), scaleMax = Math.max(maxG, band.high) * 1.4, lmax = Math.log10(scaleMax) || 1;
+    const pos = g => g > 1 ? Math.min(100, Math.log10(g) / lmax * 100) : 0;
+    const chartBars = items.map(({ raw: c, r, role }) => ({ name: c.name, gLabel: this.fmt(r.G, 0), heightPct: pos(r.G) + '%', color: this.evalG(r.G, role).color }));
+    const bbN = pos(band.low), btN = pos(band.high);
+
+    // ---- verification ----
+    const rapid = items.filter(x => x.role === 'rapid'), floc = items.filter(x => x.role === 'floc');
+    const checks = [];
+    // 1 rapid G
+    if (rapid.length) { const gs = rapid.map(x => x.r.G), mn = Math.min(...gs), mx = Math.max(...gs); const key = gs.every(g => g >= 700 && g <= 1000) ? 'optimal' : gs.every(g => g >= 500 && g <= 1500) ? 'acceptable' : 'out'; checks.push({ k: key, label: t.chkRapidG, value: this.fmt(mn, 0) + (mn !== mx ? '–' + this.fmt(mx, 0) : '') + ' s⁻¹', range: '700–1000 s⁻¹' }); }
+    else checks.push({ k: 'none', label: t.chkRapidG, value: '—', range: '700–1000 s⁻¹' });
+    // 2 rapid T
+    if (rapid.length) { const tm = Math.max(...rapid.map(x => x.r.Tsec)); const key = tm <= 60 ? 'optimal' : tm <= 120 ? 'acceptable' : 'out'; checks.push({ k: key, label: t.chkRapidT, value: this.fmt(tm, 1) + ' s', range: '< 60 s' }); }
+    else checks.push({ k: 'none', label: t.chkRapidT, value: '—', range: '< 60 s' });
+    // 3 floc G
+    if (floc.length) { const gs = floc.map(x => x.r.G), mn = Math.min(...gs), mx = Math.max(...gs); const key = gs.every(g => g >= 20 && g <= 70) ? 'optimal' : gs.every(g => g >= 10 && g <= 100) ? 'acceptable' : 'out'; checks.push({ k: key, label: t.chkFlocG, value: this.fmt(mn, 0) + '–' + this.fmt(mx, 0) + ' s⁻¹', range: '20–70 s⁻¹' }); }
+    else checks.push({ k: 'none', label: t.chkFlocG, value: '—', range: '20–70 s⁻¹' });
+    // 4 taper
+    if (floc.length >= 2) { const gs = floc.map(x => x.r.G); let dec = true, ninc = true; for (let i = 1; i < gs.length; i++) { if (!(gs[i] < gs[i - 1])) dec = false; if (gs[i] > gs[i - 1]) ninc = false; } const key = dec ? 'optimal' : ninc ? 'acceptable' : 'out'; checks.push({ k: key, label: t.chkTaper, value: gs.map(g => this.fmt(g, 0)).join(' › '), range: s.lang === 'es' ? 'decreciente' : 'decreasing' }); }
+    else checks.push({ k: 'none', label: t.chkTaper, value: '—', range: s.lang === 'es' ? 'decreciente' : 'decreasing' });
+    // 5 floc time
+    if (floc.length) { const st = floc.reduce((a, b) => a + b.r.Tsec, 0); const key = (st >= 900 && st <= 1800) ? 'optimal' : (st >= 600 && st <= 2400) ? 'acceptable' : 'out'; checks.push({ k: key, label: t.chkFlocT, value: this.fmt(st / 60, 1) + ' min', range: '15–30 min' }); }
+    else checks.push({ k: 'none', label: t.chkFlocT, value: '—', range: '15–30 min' });
+    // 6 camp
+    { const key = (totalGt >= 30000 && totalGt <= 150000) ? 'optimal' : (totalGt >= 10000 && totalGt <= 250000) ? 'acceptable' : (totalGt > 0 ? 'out' : 'none'); checks.push({ k: key, label: t.chkCamp, value: this.fmt(totalGt, 0), range: '30 000–150 000' }); }
+    // 7 number
+    { const nF = floc.length; const key = nF >= 3 ? 'optimal' : nF === 2 ? 'acceptable' : nF >= 1 ? 'out' : 'none'; checks.push({ k: key, label: t.chkNum, value: this.fmt(nF, 0), range: '≥ 3' }); }
+
+    const ckIds = ['rapidG', 'rapidT', 'flocG', 'taper', 'flocT', 'camp', 'num'];
+    const checksView = checks.map((ck, i) => { const m = this.ckMeta(ck.k); return { label: ck.label, value: ck.value, range: ck.range, color: m.color, bg: m.bg, icon: m.icon, statusText: m.statusText, needsFix: ck.k === 'out', fix: ck.k === 'out' ? t.fix[ckIds[i]] : '' }; });
+    const considered = checks.filter(c => c.k !== 'none'), passing = considered.filter(c => c.k === 'optimal' || c.k === 'acceptable').length;
+    const anyOut = considered.some(c => c.k === 'out'), allOpt = considered.length > 0 && considered.every(c => c.k === 'optimal');
+    let okey = considered.length === 0 ? 'none' : anyOut ? 'out' : allOpt ? 'optimal' : 'acceptable';
+    const oc = this.colors(okey === 'none' ? 'none' : okey);
+    const overallTitle = okey === 'optimal' ? t.overallOk : okey === 'acceptable' ? t.overallAcc : okey === 'out' ? t.overallBad : t.overallNone;
+    const overallBorder = okey === 'optimal' ? '#bfe4d2' : okey === 'acceptable' ? '#ecdcae' : okey === 'out' ? '#eecabf' : '#dde5e7';
+
+    const normaMap = { cepis: 'OPS/OMS — CEPIS', ras: 'RAS 2000 (Colombia)', inen: 'NTE INEN (Ecuador)', awwa: 'AWWA / Ten States' };
+    const wtMap = { potable: t.wtPotable, residual: t.wtResidual, industrial: t.wtIndustrial, riego: t.wtRiego };
+    const unitMap = { Ls: 'L/s', m3s: 'm³/s', m3h: 'm³/h' };
+    const dash = v => (v && String(v).trim()) ? v : '—';
+
+    const set = (k) => (e) => this.setState({ [k]: e.target.value });
+
+    return {
+      lang: s.lang, t,
+      isProyecto: s.tab === 'proyecto', isAgua: s.tab === 'agua', isFloc: s.tab === 'floc', isResults: s.tab === 'resultados', isVerify: s.tab === 'verificacion', isReport: s.tab === 'informe', isPortada: s.tab === 'portada',
+      steps: [
+        { key: 'portada', num: '✦', label: t.stepCover }, { key: 'proyecto', num: '1', label: t.stepProject }, { key: 'agua', num: '2', label: t.stepWater }, { key: 'floc', num: '3', label: t.stepFloc },
+        { key: 'resultados', num: '4', label: t.stepResults }, { key: 'verificacion', num: '5', label: t.stepVerify }, { key: 'informe', num: '6', label: t.stepReport },
+      ].map(st => {
+        const active = s.tab === st.key;
+        return { num: st.num, label: st.label, onClick: () => this.setTab(st.key), bg: active ? '#eef6f7' : 'transparent', numBg: active ? '#0A6E80' : '#eef3f4', numColor: active ? '#fff' : '#6b7d83', color: active ? '#0A6E80' : '#5e7178', weight: active ? '600' : '500' };
+      }),
+      projName: s.projName, projLoc: s.projLoc, projAuthor: s.projAuthor, projDate: s.projDate, norma: s.norma, waterType: s.waterType, projNotes: s.projNotes,
+      onProjName: set('projName'), onProjLoc: set('projLoc'), onProjAuthor: set('projAuthor'), onProjDate: set('projDate'), onNorma: set('norma'), onWaterType: set('waterType'), onProjNotes: set('projNotes'),
+      tempC: s.tempC, flowValue: s.flowValue, flowUnit: s.flowUnit, process: s.process, flowUnitLabel: unitMap[s.flowUnit],
+      onTemp: set('tempC'), onFlow: set('flowValue'), onFlowUnit: set('flowUnit'), onProcess: set('process'),
+      muLabel: this.fmt(wp.mu * 1000, 3) + ' mPa·s', rhoLabel: this.fmt(wp.rho, 1) + ' kg/m³', gammaLabel: this.fmt(wp.gamma, 0) + ' N/m³',
+      chambers, noChambers: chambers.length === 0, addChamber: () => this.addChamber(),
+      plantSel: s.plantSel, plants: this.plants.map(p => ({ key: p.key, label: s.lang === 'es' ? p.labelEs : p.labelEn })),
+      onPlantSel: set('plantSel'), loadPlant: () => this.loadPlant(),
+      loadSolution: () => this.loadSolution(), hasSolution: !!(this.plants.find(p => p.key === s.plantSel) || {}).solution,
+      showSuggest: !!(this.plants.find(p => p.key === s.plantSel) || {}).solution || okey === 'out',
+      suggestNote: (this.plants.find(p => p.key === s.plantSel) || {}).solution ? t.exerciseTag : t.suggestNote,
+      suggestLabel: (this.plants.find(p => p.key === s.plantSel) || {}).solution ? t.solBtn : t.genSolBtn,
+      suggestAction: (this.plants.find(p => p.key === s.plantSel) || {}).solution ? (() => this.loadSolution()) : (() => this.autoSolution()),
+      totalVLabel: this.fmt(totalV, 2) + ' m³', totalTLabel: this.fmt(totalT, 0) + ' s', totalTmin: this.fmt(totalT / 60, 1) + ' min', meanGLabel: this.fmt(meanG, 1), totalGtLabel: this.fmt(totalGt, 0),
+      gtStatusLabel: gtEv.label, gtStatusColor: gtEv.color, gtStatusBg: gtEv.bg,
+      chartBars, bandBottom: bbN + '%', bandHeight: (btN - bbN) + '%',
+      bandLabel: (s.lang === 'es' ? 'Rango recomendado ' : 'Recommended ') + band.low + '–' + band.high + ' s⁻¹',
+      scaleMaxLabel: this.fmt(scaleMax, 0), chartScaleNote: t.chartScaleNote,
+      rangeNote: s.process === 'floc' ? (s.lang === 'es' ? 'Floculación 20–70 s⁻¹ · mezcla rápida 700–1000 s⁻¹' : 'Flocculation 20–70 s⁻¹ · rapid mix 700–1000 s⁻¹') : (s.lang === 'es' ? 'Mezcla rápida · óptimo 700–1000 s⁻¹' : 'Rapid mix · optimal 700–1000 s⁻¹'),
+      checks: checksView, compliesOf: passing + ' / ' + considered.length,
+      overallTitle, overallColor: oc.color, overallBg: okey === 'none' ? '#f3f8f9' : this.colors(okey).bg, overallBorder,
+      normaLabel: normaMap[s.norma], waterTypeLabel: wtMap[s.waterType],
+      reportName: dash(s.projName), reportLoc: dash(s.projLoc), reportAuthor: dash(s.projAuthor), reportDate: dash(s.projDate),
+      goProject: () => this.setTab('proyecto'), goWater: () => this.setTab('agua'), goFloc: () => this.setTab('floc'), goResults: () => this.setTab('resultados'), goVerify: () => this.setTab('verificacion'), goReport: () => this.setTab('informe'),
+      printReport: () => { if (typeof window !== 'undefined') window.print(); },
+      toggleLang: () => this.setState(st => ({ lang: st.lang === 'es' ? 'en' : 'es' })),
+    };
+  }
+}
+</script>
+</body>
+</html>
